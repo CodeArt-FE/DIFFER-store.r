@@ -1,0 +1,804 @@
+/* ==========================================================================
+   1. المتغيرات والألوان الأساسية للموقع
+   ========================================================================== */
+:root {
+    --bg-main: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --accent-gray: #e9ecef;
+    --border-color: #e0e0e0;
+    --dark-slate: #1e242b;
+    --whatsapp-green: #25d366;
+    --discount-red: #d90429;
+    --shadow-soft: 0 8px 24px rgba(0,0,0,0.06);
+    --transition-fast: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    direction: rtl;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   2. الشريط الإعلاني والهيدر وشريط البحث
+   ========================================================================== */
+.announcement-bar {
+    background: var(--dark-slate);
+    color: #ffffff;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.main-header {
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+}
+
+.brand-logo {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    position: relative;
+    padding: 5px 10px;
+}
+
+.lang-btn {
+    font-size: 0.9rem;
+    font-weight: 800;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 10px;
+    background: var(--accent-gray);
+    cursor: pointer;
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--dark-slate);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar-container {
+    display: none;
+    padding: 10px 5%;
+    background: var(--accent-gray);
+    position: relative;
+}
+
+.search-bar-container.active {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar-container input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+}
+
+#clearSearchBtn {
+    position: absolute;
+    left: 7%;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   3. القائمة الجانبية وطبقة التعتيم
+   ========================================================================== */
+.side-drawer {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100%;
+    background: #ffffff;
+    z-index: 1000;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+    transition: var(--transition-fast);
+    padding: 20px;
+}
+
+.side-drawer.active {
+    right: 0;
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.drawer-nav ul {
+    list-style: none;
+}
+
+.drawer-nav li {
+    margin-bottom: 12px;
+}
+
+.drawer-nav a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.drawer-nav a:hover, .drawer-nav a.active {
+    background: var(--accent-gray);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 950;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   4. البانر الرئيسي بالفيديو وقسم عن البراند
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    height: 65vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.hero-video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+}
+
+.hero-overlay-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #ffffff;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.about-section {
+    padding: 40px 0;
+    background: #ffffff;
+}
+
+.about-card {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
+    background: var(--bg-main);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+/* ==========================================================================
+   5. قسم المنتجات والسلايدر الأفقي بالأسهم يمين وشمال في الرئيسية
+   ========================================================================== */
+.products-section {
+    padding: 50px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.quick-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.quick-filter-btn {
+    padding: 6px 16px;
+    border: 1px solid var(--border-color);
+    background: #ffffff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.quick-filter-btn.active, .quick-filter-btn:hover {
+    background: var(--dark-slate);
+    color: #ffffff;
+}
+
+.products-slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.products-grid {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding: 10px 5px;
+    scrollbar-width: none;
+}
+
+.products-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.product-card {
+    min-width: 260px;
+    flex: 0 0 auto;
+    background: var(--bg-card);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.home-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--dark-slate);
+    color: #ffffff;
+    border: none;
+    font-size: 1.2rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.home-slider-arrow:hover {
+    background: #111;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.home-prev-btn { right: -20px; }
+.home-next-btn { left: -20px; }
+
+.product-img-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 120%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product-img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.04);
+}
+
+.badge-sale {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--discount-red);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.current-price {
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.btn-card-add {
+    flex: 1;
+    padding: 8px;
+    background: var(--dark-slate);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-card-view {
+    padding: 8px 12px;
+    background: var(--accent-gray);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   6. نافذة تفاصيل المنتج (Modal) والسلايدر الداخلي والكمية (+/-)
+   ========================================================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
+    overflow-y: auto;
+    position: relative;
+    padding: 25px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f1f1f1;
+}
+
+.main-image-container {
+    width: 100%;
+    height: 100%;
+}
+
+.main-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow.prev { right: 10px; }
+.slider-arrow.next { left: 10px; }
+
+.image-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.options-group { margin: 12px 0; }
+.options-group label { display: block; font-weight: 700; margin-bottom: 6px; }
+
+.size-options, .color-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.size-btn, .color-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.size-btn.active, .color-btn.active {
+    background: var(--dark-slate);
+    color: #fff;
+    border-color: var(--dark-slate);
+}
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--accent-gray);
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quantity-control input {
+    width: 45px;
+    height: 36px;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.badge-discount-modal {
+    background: var(--discount-red);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.btn-add-cart {
+    width: 100%;
+    padding: 12px;
+    background: var(--dark-slate);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+   7. سلة المشتريات الجانبية ونموذج بيانات التوصيل
+   ========================================================================== */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 350px;
+    height: 100%;
+    background: #ffffff;
+    z-index: 1000;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-drawer.active { right: 0; }
+
+.cart-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-body {
+    padding: 15px 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--accent-gray);
+}
+
+.cart-item img {
+    width: 60px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.cart-item-details { flex-grow: 1; }
+.cart-item-title { font-size: 0.9rem; font-weight: 700; }
+.cart-item-meta { font-size: 0.78rem; color: var(--text-secondary); }
+
+.remove-item-btn {
+    color: var(--discount-red);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout-form-container {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.form-group { margin-bottom: 10px; }
+.form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 3px; }
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.cart-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--border-color);
+    background: #fafafa;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.btn-whatsapp-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--whatsapp-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   8. الفوتر الرئيسي المصغر في أسفل الصفحة
+   ========================================================================== */
+.main-footer {
+    background: var(--dark-slate);
+    color: #ffffff;
+    padding-top: 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    padding-bottom: 15px;
+}
+
+.footer-brand h3 {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.footer-brand p {
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.footer-links ul { list-style: none; }
+.footer-links a { color: #aaa; text-decoration: none; font-size: 0.85rem; }
+
+.footer-bottom {
+    background: #11151a;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+@media (max-width: 768px) {
+    .modal-body { grid-template-columns: 1fr; }
+    .hero-content h2 { font-size: 1.8rem; }
+    .cart-drawer { width: 100%; right: -100%; }
+    .home-prev-btn { right: -10px; }
+    .home-next-btn { left: -10px; }
+}
